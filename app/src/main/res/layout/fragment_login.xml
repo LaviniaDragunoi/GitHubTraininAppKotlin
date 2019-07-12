@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.example.githubtraininappkotlin.login.LoginFragment">
+    <data>
+        <variable name="loginViewModel"
+                  type="com.example.githubtraininappkotlin.login.LoginViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/githubOctocatIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/githuboctocat"
+                style="@style/OctoCatImageStyle" />
+
+        <EditText
+                android:id="@+id/userEmail"
+                android:hint="@string/username_string"
+                android:text="@={loginViewModel.userEmail}"
+                app:layout_constraintEnd_toEndOf="@+id/githubOctocatIcon"
+                app:layout_constraintStart_toStartOf="@+id/githubOctocatIcon"
+                app:layout_constraintTop_toBottomOf="@+id/githubOctocatIcon"
+                android:inputType="textEmailAddress"
+                style="@style/EditTextStyle" />
+
+        <EditText
+                android:id="@+id/userPassword"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:text="@={loginViewModel.userPassword}"
+                android:hint="@string/password_string"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/userEmail"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/userEmail"
+                app:layout_constraintTop_toBottomOf="@+id/userEmail" />
+
+        <Button
+                android:id="@+id/loginButton"
+                style="@style/LoginButtonStyle"
+                android:layout_marginTop="20dp"
+                android:text="@string/login_string"
+                android:onClick="@{() -> loginViewModel.loginAction()}"
+                app:layout_constraintEnd_toEndOf="@+id/userPassword"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="@+id/userPassword"
+                app:layout_constraintTop_toBottomOf="@+id/userPassword" />
+        <TextView
+                android:id="@+id/errorConnection"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/error_string"
+                android:visibility="gone"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

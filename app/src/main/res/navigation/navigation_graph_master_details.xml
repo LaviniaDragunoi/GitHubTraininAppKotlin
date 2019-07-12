@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_graph_master_details"
+            app:startDestination="@id/repoDetailsFragment2">
+
+    <fragment android:id="@+id/reposFragment2" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="fragment_repos" tools:layout="@layout/fragment_repos"/>
+    <fragment android:id="@+id/userFragment2" android:name="com.example.githubtraininappkotlin.owner.UserFragment"
+              android:label="fragment_user" tools:layout="@layout/fragment_user">
+        <action android:id="@+id/action_userFragment2_to_reposFragment2" app:destination="@id/reposFragment2"/>
+        <action android:id="@+id/action_userFragment2_to_repoDetailsFragment2"
+                app:destination="@id/repoDetailsFragment2"/>
+    </fragment>
+    <fragment android:id="@+id/repoDetailsFragment2"
+              android:name="com.example.githubtraininappkotlin.repoDetails.RepoDetailsFragment"
+              android:label="fragment_repo_details" tools:layout="@layout/fragment_repo_details"/>
+</navigation>

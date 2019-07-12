@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".owner.UserFragment">
+<FrameLayout
+    style="@style/MatchMatchStyle">
+
+    <ScrollView
+        style="@style/MatchMatchStyle">
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/WMatchHWrapStyle">
+        <LinearLayout
+            style="@style/WMatchHWrapStyle">
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:src="@drawable/githuboctocat"
+                android:layout_margin="@dimen/ten_dp"/>
+
+            <LinearLayout
+                android:layout_width="@dimen/zero_dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/bioString"
+                    style="@style/TextTitleStyle" />
+                <TextView
+                    android:id="@+id/bioTextView"
+                    tools:text="@string/indication_text"
+                    style="@style/TextStyle" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:text="@string/locationTitle"
+            style="@style/TextTitleStyle"/>
+        <TextView
+            android:id="@+id/locationTextView"
+            style="@style/TextStyle"
+            tools:text="@string/locationString"/>
+
+        <TextView
+            style="@style/TextTitleStyle"
+            android:text="@string/emailTitle"/>
+        <TextView
+            android:id="@+id/emailTextView"
+            style="@style/TextStyle"
+            tools:text="@string/emailString"/>
+
+        <TextView
+            style="@style/TextTitleStyle"
+            android:text="@string/createdTitle"/>
+        <TextView
+            android:id="@+id/createdDateTextView"
+            style="@style/TextStyle"
+            tools:text="@string/dateString"/>
+        <TextView
+            style="@style/TextTitleStyle"
+            android:text="@string/updateTitle"/>
+        <TextView
+            android:id="@+id/updateDateTextView"
+            style="@style/TextStyle"
+            tools:text="@string/dateString"/>
+        <TextView
+            style="@style/TextTitleStyle"
+            android:text="@string/publicReposTitle"/>
+        <TextView
+            android:id="@+id/publicRepoNumber"
+            style="@style/TextStyle"
+            tools:text="@string/numberString"/>
+
+        <TextView
+            style="@style/TextTitleStyle"
+            android:text="@string/privateReposTitle"/>
+        <TextView
+            android:id="@+id/privateRepoNumber"
+            style="@style/TextStyle"
+            tools:text="@string/numberString"/>
+
+        <LinearLayout
+            style="@style/WMatchHWrapStyle">
+
+            <Button
+                android:id="@+id/openRepoButton"
+                android:text="@string/viewRepositories"
+                tools:targetApi="lollipop"
+                android:drawableStart="@drawable/ic_archive"
+                style="@style/BottomButtonStyle" />
+
+            <Button
+                android:id="@+id/emailButton"
+                style="@style/BottomButtonStyle"
+                android:drawableEnd="@drawable/ic_mail"
+                android:text="@string/contact_by_email"
+                android:focusableInTouchMode="true"
+                tools:targetApi="lollipop"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
+
+</layout>
