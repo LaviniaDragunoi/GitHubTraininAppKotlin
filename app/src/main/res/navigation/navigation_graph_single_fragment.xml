@@ -5,7 +5,7 @@
 
     <fragment android:id="@+id/loginFragment" android:name="com.example.githubtraininappkotlin.login.LoginFragment"
               android:label="LoginFragment">
-        <action android:id="@+id/action_loginFragment_to_userFragment" app:destination="@id/userFragment"/>
+        <action android:id="@+id/action_loginFragment_to_userFragment" app:destination="@+id/userFragment"/>
     </fragment>
     <fragment android:id="@+id/reposFragment" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
               android:label="fragment_repos" tools:layout="@layout/fragment_repos">

@@ -1,36 +1,49 @@
 package com.example.githubtraininappkotlin.login
 
+import android.app.Application
 import android.util.Base64
-import android.widget.Toast
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.githubtraininappkotlin.Repository
 
-class LoginViewModel: ViewModel(){
+class LoginViewModel(val repository: Repository, application: Application): ViewModel(){
 
     val userEmail = MutableLiveData<String>()
-
-    lateinit var authHeader: String
-    private val _userEmailDisplayed = MutableLiveData<String>()
-    val userEmailDisplayed: LiveData<String>
-    get() = _userEmailDisplayed
-
-
     val userPassword = MutableLiveData<String>()
-
-    private val _userPasswordDisplayed = MutableLiveData<String>()
-    val userPasswordDisplayed: LiveData<String>
-    get() = _userPasswordDisplayed
-
+    private val errorMessage = MutableLiveData<String>()
+    val errorMessageLiveData: LiveData<String>
+    get() = errorMessage
     private val _eventLoginAction = MutableLiveData<Boolean>()
     val eventLoginAction : LiveData<Boolean>
     get() =_eventLoginAction
+    lateinit var authHeader:String
+
+    fun isEmailValid(email: String): Boolean{
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
 
     fun loginAction(){
         val base = "${userEmail.value}:${userPassword.value}"
          authHeader = "Basic " + Base64.encodeToString(base.toByteArray(), Base64.NO_WRAP);
-        _eventLoginAction.value = true
+         getAuthentication(authHeader)
+
+    }
+
+    private fun getAuthentication(authHeader: String) {
+       repository.fetchRetrofit(authHeader, {
+           _eventLoginAction.postValue(true)
+
+       }, {
+           _eventLoginAction.postValue(false)
+           errorMessage.postValue(it)
+
+       }, {
+           _eventLoginAction.postValue(false)
+           errorMessage.postValue(it)
+       })
+
     }
 
 }
