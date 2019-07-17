@@ -28,4 +28,10 @@ interface OwnerDao {
 
     @Query("SELECT * from repos_table")
     fun getReposListLiveData(): LiveData<List<GithubRepoEntity>>
+
+    @Query("DELETE FROM owner_table")
+    fun clearOwner()
+
+    @Query("DELETE FROM repos_table")
+    fun clearRepos()
 }

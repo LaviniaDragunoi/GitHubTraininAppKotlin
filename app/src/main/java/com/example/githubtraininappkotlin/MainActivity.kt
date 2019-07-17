@@ -1,5 +1,6 @@
 package com.example.githubtraininappkotlin
 
+import android.content.SharedPreferences
 import androidx.databinding.DataBindingUtil
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,14 +18,18 @@ class MainActivity : AppCompatActivity(), DrawerLocker {
            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
        }
     }
-
+    lateinit var mPreferences: SharedPreferences
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     lateinit var appBarConfiguration: AppBarConfiguration
+    val sharedPrefFile = "com.example.githubtrainingappjava"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+
+
+       mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
 
         //Setting up the navigation drawer to the Activity
         drawerLayout = binding.drawer
