@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.githubtraininappkotlin.*
 import com.example.githubtraininappkotlin.data.ApiClient
 import com.example.githubtraininappkotlin.data.ApiInterface
@@ -49,24 +52,22 @@ class LoginFragment : Fragment() {
         val viewModelFactory = LoginViewModelFactory(repository,application)
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(LoginViewModel::class.java)
 
-
         binding .apply{
             loginViewModel = viewModel
             lifecycleOwner = this@LoginFragment
         }
 
-
                 viewModel.userEmail.observe(this, Observer {
             if(!viewModel.isEmailValid(it)){
-
                     userEmail.setError("Please enter a valid email address.")
-            }
+
+            }else loginButton.isEnabled
 
         })
         viewModel.userPassword.observe(this, Observer {
             if(it.isEmpty()){
                 userPassword.setError("Please enter your password")
-            }
+            }else loginButton.isEnabled
         })
 
 
@@ -75,13 +76,17 @@ class LoginFragment : Fragment() {
                 //Add sharePref with boolean that the user
                 preferencesEditor.putBoolean(IS_LOGED, isLoged)
                 preferencesEditor.apply()
+                view!!.findNavController().navigate(R.id.action_loginFragment_to_userFragment)
 
             }else{
                 preferencesEditor.putBoolean(IS_LOGED, isLoged)
                 preferencesEditor.apply()
-                Toast.makeText(activity!!,viewModel.errorMessageLiveData.value, Toast.LENGTH_SHORT).show()
+                viewModel.errorMessageLiveData.observe(this, Observer {
+                    Toast.makeText(activity!!,it, Toast.LENGTH_SHORT).show()
+                })
             }
         })
+
 
         return binding.root
     }

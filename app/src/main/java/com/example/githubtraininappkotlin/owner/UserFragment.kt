@@ -25,9 +25,9 @@ class UserFragment: Fragment(){
 false
         )
         (activity as DrawerLocker).setDrawerLocked(false)
-        (activity as AppCompatActivity).supportActionBar!!.apply {
-            setTitle(owner.login)
-        }
+//        (activity as AppCompatActivity).supportActionBar!!.apply {
+//           // setTitle(owner.login)
+//        }
         return binding.root
     }
 }
