@@ -20,18 +20,21 @@ class Repository(
         appExecutors.networkIO().execute {
             try {
                 val response = apiInterface.getOwner(authHeader).execute()
-                if (response.isSuccessful) {
-                    addOwnerToDb(response.body())
-                    onSuccess(response.body()!!)
-                } else {
                     when (response.code()) {
+                        200 ->  {
+                            onSuccess(response.body()!!)
+                            val owner = apiInterface.getOwner(authHeader).execute().body()
+                            addOwnerToDb(owner)
+
+                        }
                         401 -> onInvalidUsernameAndPassword("Invalid email or password")
                         404 -> onShowErrorToast("Something stupid happened")
                         else -> onShowErrorToast("Server did not respond with owner")
                     }
-                }
+
             } catch (exception: Exception) {
                 Log.d("TAG",exception.message!!)
+                onShowErrorToast("There is a connection error")
             }
         }
 
