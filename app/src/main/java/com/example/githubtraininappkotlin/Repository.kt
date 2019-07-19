@@ -13,7 +13,6 @@ class Repository(
     private val appExecutors: AppExecutors,
     private val apiInterface: ApiInterface
 ) {
-   lateinit var ownerLD : LiveData<OwnerEntity>
 
     fun fetchRetrofit(authHeader: String, onSuccess: (owner: OwnerEntity) -> Unit, onShowErrorToast: (message: String) -> Unit,
                       onInvalidUsernameAndPassword:(message:String) -> Unit) {
@@ -24,7 +23,7 @@ class Repository(
                         200 ->  {
                             onSuccess(response.body()!!)
                             val owner = apiInterface.getOwner(authHeader).execute().body()
-                            addOwnerToDb(owner)
+                            addOwnerToDb(owner!!)
 
                         }
                         401 -> onInvalidUsernameAndPassword("Invalid email or password")
@@ -40,10 +39,15 @@ class Repository(
 
     }
 
-    private fun addOwnerToDb(owner: OwnerEntity?) {
+    private fun addOwnerToDb(owner: OwnerEntity) {
         database.ownerDatabaseDao.clearOwner()
-        database.ownerDatabaseDao.insertOwner(owner!!)
+        database.ownerDatabaseDao.insertOwner(owner)
 
     }
+  fun getOwnerLDFromDb():LiveData<OwnerEntity>{
+      return database.ownerDatabaseDao.getOwnerLiveData()
+
+}
+
 
 }
