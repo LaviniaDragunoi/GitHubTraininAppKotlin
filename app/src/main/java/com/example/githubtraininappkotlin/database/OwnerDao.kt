@@ -11,13 +11,13 @@ interface OwnerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOwner(ownerDao: OwnerEntity)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertReposList(reposList: List<GithubRepoEntity>)
 
     @Update
     fun updateReposList(reposList: List<GithubRepoEntity>)
 
-    @Query("SELECT * from owner_table")
+    @Query("SELECT * FROM owner_table")
     fun getOwnerLiveData(): LiveData<OwnerEntity>
 
     @Query("SELECT * from owner_table")
