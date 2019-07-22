@@ -10,8 +10,18 @@ import com.example.githubtraininappkotlin.models.OwnerEntity
 class UserViewModel(private val repository: Repository, application: Application) : ViewModel(){
 
 
-    val owner : LiveData<OwnerEntity> = repository.getOwnerLDFromDb()
+    val owner : LiveData<OwnerEntity> = repository.ownerLD
     private val _viewReposAction = MutableLiveData<Boolean>()
     val viewReposAction : LiveData<Boolean>
     get() = _viewReposAction
+
+
+    fun viewRepos(){
+
+    }
+
+
+    fun sendEmail(){
+
+    }
 }

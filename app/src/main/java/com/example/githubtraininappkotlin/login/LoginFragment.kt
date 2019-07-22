@@ -57,18 +57,22 @@ class LoginFragment : Fragment() {
             lifecycleOwner = this@LoginFragment
         }
 
-                viewModel.userEmail.observe(this, Observer {
+        viewModel.userEmail.observe(this, Observer {
+
             if(!viewModel.isEmailValid(it)){
-                    userEmail.setError("Please enter a valid email address.")
+                userEmail.error = "Please enter a valid email address."
 
-            }else loginButton.isEnabled
-
+            }
         })
         viewModel.userPassword.observe(this, Observer {
             if(it.isEmpty()){
-                userPassword.setError("Please enter your password")
-            }else loginButton.isEnabled
+                userPassword.error = "Please enter your password"
+            }
         })
+//     viewModel.isLoginActivated.observe(this, Observer {
+//         loginButton.isEnabled = it
+//        })
+
 
 
         viewModel.eventLoginAction.observe(this, Observer { isLoged ->
@@ -82,10 +86,12 @@ class LoginFragment : Fragment() {
                 preferencesEditor.putBoolean(IS_LOGED, isLoged)
                 preferencesEditor.apply()
                 viewModel.errorMessageLiveData.observe(this, Observer {
+
                     Toast.makeText(activity!!,it, Toast.LENGTH_SHORT).show()
                 })
             }
         })
+
 
 
         return binding.root

@@ -2,6 +2,7 @@ package com.example.githubtraininappkotlin
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.githubtraininappkotlin.data.ApiInterface
 import com.example.githubtraininappkotlin.database.AppDatabase
 import com.example.githubtraininappkotlin.models.OwnerEntity
@@ -13,6 +14,9 @@ class Repository(
     private val appExecutors: AppExecutors,
     private val apiInterface: ApiInterface
 ) {
+    private val ownerMutableLD = MutableLiveData<OwnerEntity>()
+    val ownerLD : LiveData<OwnerEntity>
+    get() = ownerMutableLD
 
     fun fetchRetrofit(authHeader: String, onSuccess: (owner: OwnerEntity) -> Unit, onShowErrorToast: (message: String) -> Unit,
                       onInvalidUsernameAndPassword:(message:String) -> Unit) {
@@ -39,15 +43,16 @@ class Repository(
 
     }
 
-    private fun addOwnerToDb(owner: OwnerEntity) {
+    private fun addOwnerToDb(owner: OwnerEntity?) {
         database.ownerDatabaseDao.clearOwner()
-        database.ownerDatabaseDao.insertOwner(owner)
+        database.ownerDatabaseDao.insertOwner(owner!!)
 
     }
-  fun getOwnerLDFromDb():LiveData<OwnerEntity>{
-      return database.ownerDatabaseDao.getOwnerLiveData()
-
-}
+    init {
+            appExecutors.diskIO().execute{
+               ownerMutableLD.postValue(database.ownerDatabaseDao.getOwner())
+            }
+        }
 
 
 }
