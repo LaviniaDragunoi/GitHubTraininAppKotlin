@@ -19,12 +19,26 @@ class LoginViewModel(val repository: Repository, application: Application): View
     get() =_eventLoginAction
     lateinit var authHeader:String
 
+//    private var _isLoginActivated = MutableLiveData<Boolean>().apply {
+//        isLoginButtonActivated()
+//    }
+//    val isLoginActivated : LiveData<Boolean>
+//    get() = _isLoginActivated
+//
+
+
     fun isEmailValid(email: String): Boolean{
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-
+//    fun isLoginButtonActivated(){
+//        when{
+//            (userEmail.value!!.isEmpty() || !isEmailValid(userEmail.value!!) || userPassword.value!!.isEmpty()) -> _isLoginActivated.postValue(false)
+//            (userEmail.value!!.isNotEmpty() && isEmailValid(userEmail.value!!) && userPassword.value!!.isNotEmpty()) -> _isLoginActivated.postValue(true)
+//        }
+//    }
     fun loginAction(){
+
         val base = "${userEmail.value}:${userPassword.value}"
          authHeader = "Basic " + Base64.encodeToString(base.toByteArray(), Base64.NO_WRAP);
          getAuthentication(authHeader)

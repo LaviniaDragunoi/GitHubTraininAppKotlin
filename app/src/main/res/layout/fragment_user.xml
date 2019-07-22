@@ -94,7 +94,8 @@
                 android:text="@string/viewRepositories"
                 tools:targetApi="lollipop"
                 android:drawableStart="@drawable/ic_archive"
-                style="@style/BottomButtonStyle" />
+                style="@style/BottomButtonStyle"
+            android:onClick="@{() -> userViewModel.viewRepos()}"/>
 
             <Button
                 android:id="@+id/emailButton"
@@ -102,7 +103,8 @@
                 android:drawableEnd="@drawable/ic_mail"
                 android:text="@string/contact_by_email"
                 android:focusableInTouchMode="true"
-                tools:targetApi="lollipop"/>
+                tools:targetApi="lollipop"
+                android:onClick="@{() -> userViewModel.sendEmail()}"/>
 
         </LinearLayout>
 
