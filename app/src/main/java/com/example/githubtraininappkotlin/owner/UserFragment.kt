@@ -48,6 +48,7 @@ class UserFragment: Fragment(){
 false
         )
         (activity as DrawerLocker).setDrawerLocked(false)
+        (activity as AppCompatActivity).supportActionBar!!.show()
 
         mPreferences = activity!!.getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
         if(mPreferences.getBoolean(IS_LOGED, false)){
@@ -63,7 +64,10 @@ false
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(UserViewModel::class.java)
         viewModel.owner.observe(this, Observer {
             if(it != null){
-                Log.d("TAG", it.login)
+
+                (activity as AppCompatActivity).supportActionBar!!.apply {
+                    setTitle(it.login)
+                }
                 displayOwnerDetails(it)
             }
 
@@ -97,9 +101,7 @@ false
         return binding.root
     }
     fun displayOwnerDetails(ownerEntity: OwnerEntity){
-        (activity as AppCompatActivity).supportActionBar!!.apply {
-            setTitle(ownerEntity.login)
-        }
+
         Picasso.get().load(ownerEntity.avatarUrl).into(avatar)
         bioTextView.text = ownerEntity.bio
         locationTextView.text = ownerEntity.location
