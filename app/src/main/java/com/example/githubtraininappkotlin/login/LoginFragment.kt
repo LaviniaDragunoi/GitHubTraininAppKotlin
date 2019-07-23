@@ -24,8 +24,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
+    companion object {
+        const val IS_LOGED: String = "is_loged"
+        const val AUTH_HEADER = "authheader"
+    }
 
-    private val IS_LOGED: String = "is_loged"
     private lateinit var binding: FragmentLoginBinding
     private lateinit var viewModel: LoginViewModel
     lateinit var mPreferences: SharedPreferences
@@ -78,12 +81,13 @@ class LoginFragment : Fragment() {
         viewModel.eventLoginAction.observe(this, Observer { isLoged ->
             if(isLoged){
                 //Add sharePref with boolean that the user
-                preferencesEditor.putBoolean(IS_LOGED, isLoged)
+                preferencesEditor.putBoolean(Companion.IS_LOGED, isLoged)
+                preferencesEditor.putString(AUTH_HEADER, viewModel.authHeader)
                 preferencesEditor.apply()
                 view!!.findNavController().navigate(R.id.action_loginFragment_to_userFragment)
 
             }else{
-                preferencesEditor.putBoolean(IS_LOGED, isLoged)
+                preferencesEditor.putBoolean(Companion.IS_LOGED, isLoged)
                 preferencesEditor.apply()
                 viewModel.errorMessageLiveData.observe(this, Observer {
 
@@ -97,4 +101,6 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    }
+
+
+}

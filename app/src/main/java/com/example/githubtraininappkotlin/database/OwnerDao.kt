@@ -24,7 +24,7 @@ interface OwnerDao {
     fun getOwner(): OwnerEntity
 
     @Query("SELECT * from repos_table")
-    fun getReposListLiveData(): LiveData<List<GithubRepoEntity>>
+    fun getReposList(): List<GithubRepoEntity>
 
     @Query("DELETE FROM owner_table")
     fun clearOwner()
