@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.githubtraininappkotlin.data.ApiInterface
 import com.example.githubtraininappkotlin.database.AppDatabase
+import com.example.githubtraininappkotlin.models.GithubRepoEntity
 import com.example.githubtraininappkotlin.models.OwnerEntity
 import java.lang.Exception
 
@@ -18,16 +19,23 @@ class Repository(
     val ownerLD : LiveData<OwnerEntity>
     get() = ownerMutableLD
 
+    private val reposMutableLD = MutableLiveData<List<GithubRepoEntity>>()
+    val reposLd: LiveData<List<GithubRepoEntity>>
+    get() = reposMutableLD
+
     fun fetchRetrofit(authHeader: String, onSuccess: (owner: OwnerEntity) -> Unit, onShowErrorToast: (message: String) -> Unit,
                       onInvalidUsernameAndPassword:(message:String) -> Unit) {
         appExecutors.networkIO().execute {
             try {
                 val response = apiInterface.getOwner(authHeader).execute()
+                val reposResponse = apiInterface.getRepos(authHeader).execute()
                     when (response.code()) {
                         200 ->  {
                             onSuccess(response.body()!!)
                             val owner = apiInterface.getOwner(authHeader).execute().body()
+                            val repos = reposResponse.body()
                             addOwnerToDb(owner!!)
+                            addReposToDb(repos!!)
 
                         }
                         401 -> onInvalidUsernameAndPassword("Invalid email or password")
@@ -48,9 +56,16 @@ class Repository(
         database.ownerDatabaseDao.insertOwner(owner!!)
 
     }
+
+    private fun addReposToDb(reposList: List<GithubRepoEntity>?) {
+        database.ownerDatabaseDao.clearRepos()
+        database.ownerDatabaseDao.insertReposList(reposList!!)
+
+    }
     init {
             appExecutors.diskIO().execute{
                ownerMutableLD.postValue(database.ownerDatabaseDao.getOwner())
+                reposMutableLD.postValue(database.ownerDatabaseDao.getReposList())
             }
         }
 

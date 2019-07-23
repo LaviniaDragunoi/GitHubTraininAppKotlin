@@ -10,7 +10,7 @@ class UserViewModelFactory(
     private val application: Application): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(repository, application ) as T
+            return UserViewModel(repository, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
