@@ -54,7 +54,7 @@ class ReposFragment: Fragment(){
         binding.reposRecycler.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         viewModel.reposList.observe(this, Observer {
             if(it.isNotEmpty()){
-                adapter.repos = it
+                adapter.submitList(it)
             }
         })
 
