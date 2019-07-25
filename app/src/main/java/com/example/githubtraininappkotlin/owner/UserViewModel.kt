@@ -8,7 +8,10 @@ import com.example.githubtraininappkotlin.Repository
 import com.example.githubtraininappkotlin.models.GithubRepoEntity
 import com.example.githubtraininappkotlin.models.OwnerEntity
 
-class UserViewModel(private val repository: Repository, application: Application) : ViewModel(){
+class UserViewModel(
+    private val repository: Repository,
+    application: Application,
+    private val authHeader: String) : ViewModel(){
 
 
     val owner : LiveData<OwnerEntity> = repository.ownerLD
@@ -21,19 +24,30 @@ class UserViewModel(private val repository: Repository, application: Application
     val sendEmailAction: LiveData<Boolean>
         get() = _sendEmailAction
 
+    private val errorReposMessage = MutableLiveData<String>()
+    val errorReposMessageLiveData: LiveData<String>
+        get() = errorReposMessage
 
     fun viewRepos(){
-       if(reposList.value!!.isNotEmpty()){
-           _viewReposAction.postValue(true)
-       }else {
-           _viewReposAction.postValue(false)
-       }
+      getReposToDb(authHeader)
     }
-
 
     fun sendEmail(){
         if (owner.value!!.email!!.isNotEmpty()){
             _sendEmailAction.postValue(true)
         }else _sendEmailAction.postValue(false)
+    }
+
+    fun getReposToDb(authHeader: String){
+        repository.fetchRetrofitRepos(authHeader,
+            {
+
+                _viewReposAction.postValue(true)
+
+            },{
+                _viewReposAction.postValue(false)
+                errorReposMessage.postValue(it)
+            }
+        )
     }
 }

@@ -24,7 +24,7 @@ class RepoDetailsFragment : Fragment(){
         )
 
         (activity as DrawerLocker).setDrawerLocked(true)
-        (activity as AppCompatActivity).supportActionBar!!.hide()
+        (activity as AppCompatActivity).supportActionBar!!.show()
 
         return binding.root
     }

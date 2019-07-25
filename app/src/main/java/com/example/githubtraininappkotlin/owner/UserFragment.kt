@@ -16,10 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.githubtraininappkotlin.AppExecutors
-import com.example.githubtraininappkotlin.DrawerLocker
-import com.example.githubtraininappkotlin.R
-import com.example.githubtraininappkotlin.Repository
+import com.example.githubtraininappkotlin.*
 import com.example.githubtraininappkotlin.data.ApiClient
 import com.example.githubtraininappkotlin.data.ApiInterface
 import com.example.githubtraininappkotlin.database.AppDatabase
@@ -36,7 +33,7 @@ class UserFragment: Fragment(){
     private lateinit var binding: FragmentUserBinding
     private lateinit var viewModel: UserViewModel
     lateinit var mPreferences: SharedPreferences
-    val sharedPrefFile = "com.example.githubtrainingappjava"
+    val sharedPrefFile = "com.example.githubtrainingappkotlin"
     lateinit var preferencesEditor: SharedPreferences.Editor
     var autheader: String? = null
 
@@ -60,7 +57,7 @@ false
         val appExecutors = AppExecutors.instance
         val apiInterface = ApiClient.client.create(ApiInterface::class.java)
         val repository = Repository(database,appExecutors,apiInterface)
-        val viewModelFactory = UserViewModelFactory(repository,application)
+        val viewModelFactory = UserViewModelFactory(repository,application,autheader!!)
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(UserViewModel::class.java)
         viewModel.owner.observe(this, Observer {
             if(it != null){
@@ -80,6 +77,11 @@ false
         viewModel.viewReposAction.observe(this, Observer {showrepos ->
             if(showrepos){
                 view!!.findNavController().navigate(R.id.action_userFragment_to_reposFragment)
+            }else{
+                viewModel.errorReposMessageLiveData.observe(this, Observer {
+
+                    Toast.makeText(activity!!,it, Toast.LENGTH_SHORT).show()
+                })
             }
         })
 
@@ -106,8 +108,8 @@ false
         bioTextView.text = ownerEntity.bio
         locationTextView.text = ownerEntity.location
         emailTextView.text = ownerEntity.email
-        createdDateTextView.text = ownerEntity.createdAt
-        updateDateTextView.text = ownerEntity.updatedAt
+        createdDateTextView.text =Util.displayDate(ownerEntity.createdAt!!)
+        updateDateTextView.text = Util.displayDate(ownerEntity.updatedAt!!)
         publicRepoNumber.text = ownerEntity.publicRepos.toString()
         privateRepoNumber.text = ownerEntity.totalPrivateRepos.toString()
 
