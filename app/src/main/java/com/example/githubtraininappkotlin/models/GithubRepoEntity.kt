@@ -91,7 +91,7 @@ data class GithubRepoEntity(
     val eventsUrl: String?,
 
     @ColumnInfo(name = "assignees_url")
-    @SerializedName("assigness_url")
+    @SerializedName("assignees_url")
     @Expose
     val assigneesUrl: String?,
 
@@ -105,8 +105,8 @@ data class GithubRepoEntity(
     @Expose
     val tagsUrl: String?,
 
-    @ColumnInfo(name = "blogs_url")
-    @SerializedName("blogs_url")
+    @ColumnInfo(name = "blobs_url")
+    @SerializedName("blobs_url")
     @Expose
     val blobsUrl: String?,
 
@@ -136,7 +136,7 @@ data class GithubRepoEntity(
     val languagesUrl: String?,
 
     @ColumnInfo(name = "stargazers_url")
-    @SerializedName("startgazers_url")
+    @SerializedName("stargazers_url")
     @Expose
     val stargazersUrl: String?,
 
