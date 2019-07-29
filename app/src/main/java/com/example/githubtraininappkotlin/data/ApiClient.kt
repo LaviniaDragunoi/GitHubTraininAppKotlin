@@ -18,7 +18,6 @@ object ApiClient {
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-
             }
             return retrofit!!
         }

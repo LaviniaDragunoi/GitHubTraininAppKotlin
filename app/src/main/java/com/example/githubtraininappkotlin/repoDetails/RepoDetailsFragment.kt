@@ -11,7 +11,7 @@ import com.example.githubtraininappkotlin.DrawerLocker
 import com.example.githubtraininappkotlin.R
 import com.example.githubtraininappkotlin.databinding.FragmentRepoDetailsBinding
 
-class RepoDetailsFragment : Fragment(){
+class RepoDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentRepoDetailsBinding
 

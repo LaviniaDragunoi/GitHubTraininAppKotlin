@@ -18,7 +18,7 @@ data class GithubRepoEntity(
     @ColumnInfo(name = "node_id")
     @SerializedName("node_id")
     @Expose
-    val nodeId:String?,
+    val nodeId: String?,
 
     @ColumnInfo(name = "name")
     @SerializedName("name")
@@ -28,12 +28,12 @@ data class GithubRepoEntity(
     @ColumnInfo(name = "full_name")
     @SerializedName("full_name")
     @Expose
-    val fullName:String?,
+    val fullName: String?,
 
     @ColumnInfo(name = "private")
     @SerializedName("private")
     @Expose
-    val _private:Boolean,
+    val mPrivate: Boolean,
 
     @ColumnInfo(name = "html_url")
     @SerializedName("html_url")
@@ -43,27 +43,27 @@ data class GithubRepoEntity(
     @ColumnInfo(name = "description")
     @SerializedName("description")
     @Expose
-    val description:String?,
+    val description: String?,
 
     @ColumnInfo(name = "fork")
     @SerializedName("fork")
     @Expose
-    val fork:Boolean,
+    val fork: Boolean,
 
     @ColumnInfo(name = "url")
     @SerializedName("url")
     @Expose
-    val url:String?,
+    val url: String?,
 
     @ColumnInfo(name = "forks_url")
     @SerializedName("forks_url")
     @Expose
-    val forksUrl:String?,
+    val forksUrl: String?,
 
     @ColumnInfo(name = "keys_url")
     @SerializedName("keys_url")
     @Expose
-    val keysUrl:String?,
+    val keysUrl: String?,
 
     @ColumnInfo(name = "collaborators_url")
     @SerializedName("collaborators_url")

@@ -1,7 +1,23 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+plugins {
+    id "io.gitlab.arturbosch.detekt"version"1.0.0-RC16"
+}
+
+detekt {
+    toolVersion = "1.0.0-RC16"
+    input = files("src/main/kotlin")
+    config = files("path/to/config.yml")
+}
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 android {
     compileSdkVersion 28
@@ -68,5 +84,7 @@ dependencies {
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+  detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.0.0-RC16"
 
 }

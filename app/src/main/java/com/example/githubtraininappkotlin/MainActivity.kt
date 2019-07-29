@@ -1,9 +1,9 @@
 package com.example.githubtraininappkotlin
 
 import android.content.SharedPreferences
-import androidx.databinding.DataBindingUtil
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,9 +12,9 @@ import com.example.githubtraininappkotlin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), DrawerLocker {
     override fun setDrawerLocked(lock: Boolean) {
-       if(lock){
+       if (lock) {
            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-       }else{
+       } else {
            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
        }
     }
@@ -26,20 +26,15 @@ class MainActivity : AppCompatActivity(), DrawerLocker {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-
-
-       mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
-
-        //Setting up the navigation drawer to the Activity
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE)
+        // Setting up the navigation drawer to the Activity
         drawerLayout = binding.drawer
         val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
-
     }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return NavigationUI.navigateUp(navController, appBarConfiguration)

@@ -1,24 +1,19 @@
 package com.example.githubtraininappkotlin.repos
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubtraininappkotlin.R
 import com.example.githubtraininappkotlin.Util.displayDate
 import com.example.githubtraininappkotlin.databinding.RepoItemBinding
 import com.example.githubtraininappkotlin.models.GithubRepoEntity
-import kotlinx.android.synthetic.main.repo_item.view.*
 
-class ReposAdapter: ListAdapter<GithubRepoEntity,
-        ReposAdapter.ViewHolder>(ReposDiffCallback()){
+class ReposAdapter : ListAdapter<GithubRepoEntity,
+        ReposAdapter.ViewHolder>(ReposDiffCallback()) {
 
-   override fun onBindViewHolder(holder: ViewHolder , position: Int) {
+   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
        val item = getItem(position)
-
        holder.bind(item)
     }
 
@@ -26,17 +21,12 @@ class ReposAdapter: ListAdapter<GithubRepoEntity,
         return ViewHolder.from(parent)
     }
 
-
     class ViewHolder private constructor(val binding: RepoItemBinding): RecyclerView.ViewHolder(binding.root) {
 
-        val repoName: TextView = binding.repoName
-        val repoCreatedAt: TextView = binding.repoCreated
-        val repoUpdated: TextView = binding.repoUpdated
-
         fun bind(item: GithubRepoEntity) {
-            repoName.text = item.name
-            repoCreatedAt.text = displayDate(item.createdAt!!)
-            repoUpdated.text = displayDate(item.updatedAt!!)
+            binding.repoName.text = item.name
+            binding.repoCreated.text = displayDate(item.createdAt!!)
+            binding.repoUpdated.text = displayDate(item.updatedAt!!)
         }
 
         companion object {
@@ -49,7 +39,7 @@ class ReposAdapter: ListAdapter<GithubRepoEntity,
     }
 }
 
-class ReposDiffCallback: DiffUtil.ItemCallback<GithubRepoEntity>(){
+class ReposDiffCallback : DiffUtil.ItemCallback<GithubRepoEntity>(){
     override fun areItemsTheSame(oldItem: GithubRepoEntity, newItem: GithubRepoEntity): Boolean {
         return oldItem.id == newItem.id
     }
