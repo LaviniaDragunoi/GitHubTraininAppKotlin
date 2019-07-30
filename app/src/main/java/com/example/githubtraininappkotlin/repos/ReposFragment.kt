@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -38,7 +39,9 @@ class ReposFragment : Fragment() {
             reposViewModel = viewModel
             lifecycleOwner = this@ReposFragment
         }
-        val adapter = ReposAdapter()
+        val adapter = ReposAdapter(GithubRepoEntityListener { id ->
+            Toast.makeText(context, "$id", Toast.LENGTH_SHORT).show()
+        })
         binding.reposRecycler.adapter = adapter
         binding.reposRecycler.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         viewModel.reposList.observe(this, Observer {
