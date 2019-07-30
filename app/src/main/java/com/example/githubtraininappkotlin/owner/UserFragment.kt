@@ -38,6 +38,7 @@ class UserFragment : Fragment() {
     val sharedPrefFile = "com.example.githubtrainingappkotlin"
     lateinit var preferencesEditor: SharedPreferences.Editor
     var autheader: String? = null
+    lateinit var emailAddress: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(
@@ -57,6 +58,7 @@ false
             if (it != null) {
                 (activity as AppCompatActivity).supportActionBar!!.apply {
                     setTitle(it.login)
+                    emailAddress = it.email!!
                 }
                 displayOwnerDetails(it)
             }
@@ -85,10 +87,9 @@ false
      fun sendEmail(sendEmailActivated: Boolean) {
          if (sendEmailActivated) {
              val intent = Intent(Intent.ACTION_SEND)
-             intent.data = Uri.parse("mailto:")
-             intent.putExtra(Intent.EXTRA_EMAIL, "lavinia.dragunoi@yahoo.ro")
+             intent.data = Uri.parse("mailto: ")
+             intent.putExtra(Intent.EXTRA_EMAIL, emailAddress)
              intent.putExtra(Intent.EXTRA_SUBJECT, "Collaboration proposal")
-             intent.type = "plain/text"
              if (intent.resolveActivity(activity!!.packageManager) != null) {
                  activity!!.startActivity(intent)
              } else {

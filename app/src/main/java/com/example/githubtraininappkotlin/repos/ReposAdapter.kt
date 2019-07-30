@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubtraininappkotlin.Util.displayDate
 import com.example.githubtraininappkotlin.databinding.RepoItemBinding
 import com.example.githubtraininappkotlin.models.GithubRepoEntity
 
@@ -21,12 +20,11 @@ class ReposAdapter : ListAdapter<GithubRepoEntity,
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: RepoItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GithubRepoEntity) {
-            binding.repoName.text = item.name
-            binding.repoCreated.text = displayDate(item.createdAt!!)
-            binding.repoUpdated.text = displayDate(item.updatedAt!!)
+            binding.repo = item
+            binding.executePendingBindings()
         }
 
         companion object {
@@ -43,7 +41,6 @@ class ReposDiffCallback : DiffUtil.ItemCallback<GithubRepoEntity>(){
     override fun areItemsTheSame(oldItem: GithubRepoEntity, newItem: GithubRepoEntity): Boolean {
         return oldItem.id == newItem.id
     }
-
     override fun areContentsTheSame(oldItem: GithubRepoEntity, newItem: GithubRepoEntity): Boolean {
         return oldItem == newItem
     }
