@@ -34,7 +34,11 @@ class ReposFragment : Fragment() {
         )
         initializeViewModel()
         (activity as DrawerLocker).setDrawerLocked(false)
-        (activity as AppCompatActivity).supportActionBar!!.show()
+        (activity as AppCompatActivity).supportActionBar!!.apply {
+            show()
+            hasOptionsMenu()
+            title = "Repositories list"
+        }
         binding.apply {
             reposViewModel = viewModel
             lifecycleOwner = this@ReposFragment
