@@ -57,7 +57,7 @@ false
         viewModel.owner.observe(this, Observer {
             if (it != null) {
                 (activity as AppCompatActivity).supportActionBar!!.apply {
-                    setTitle(it.login)
+                    title = it.login
                     emailAddress = it.email!!
                 }
                 displayOwnerDetails(it)

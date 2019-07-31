@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), DrawerLocker {
     private lateinit var binding: ActivityMainBinding
     lateinit var drawerLayout: DrawerLayout
     lateinit var appBarConfiguration: AppBarConfiguration
-    val sharedPrefFile = "com.example.githubtrainingappjava"
+    val sharedPrefFile = "com.example.githubtrainingappkotlin"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

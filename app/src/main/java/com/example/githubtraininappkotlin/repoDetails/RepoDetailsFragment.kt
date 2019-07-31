@@ -34,9 +34,15 @@ class RepoDetailsFragment : Fragment() {
         )
         initializeViewModel()
         (activity as DrawerLocker).setDrawerLocked(false)
-        (activity as AppCompatActivity).supportActionBar!!.show()
+        (activity as AppCompatActivity).supportActionBar!!.apply {
+            show()
+            hasOptionsMenu()
+        }
         viewModel.repoDetails.observe(this, Observer {
             display(it)
+            (activity as AppCompatActivity).supportActionBar!!.apply {
+                title = it.name
+            }
         })
         return binding.root
     }
