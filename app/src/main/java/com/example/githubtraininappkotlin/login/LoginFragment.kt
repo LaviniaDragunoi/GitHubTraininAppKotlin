@@ -68,7 +68,7 @@ class LoginFragment : Fragment() {
                 preferencesEditor.putBoolean(IS_LOGED, isLoged)
                 preferencesEditor.putString(AUTH_HEADER, viewModel.authHeader)
                 preferencesEditor.apply()
-                view!!.findNavController().navigate(R.id.action_loginFragment_to_userFragment)
+                view!!.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToUserFragment())
             } else {
                 preferencesEditor.putBoolean(IS_LOGED, isLoged)
                 preferencesEditor.apply()

@@ -35,4 +35,7 @@ interface OwnerDao {
 
     @Query("DELETE FROM repos_table")
     fun clearRepos()
+
+    @Query("SELECT * FROM repos_table WHERE id = :id")
+    fun getRepoById(id: Int): GithubRepoEntity
 }

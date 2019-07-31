@@ -14,7 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.githubtraininappkotlin.AppExecutors
 import com.example.githubtraininappkotlin.DrawerLocker
 import com.example.githubtraininappkotlin.R
@@ -101,7 +101,7 @@ false
 
     fun viewReposList(viewReposActiveted: Boolean) {
         if (viewReposActiveted) {
-            view!!.findNavController().navigate(R.id.action_userFragment_to_reposFragment)
+            this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToReposFragment())
         } else {
             viewModel.errorReposMessageLiveData.observe(this, Observer {
                 Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
@@ -118,7 +118,7 @@ false
         val appExecutors = AppExecutors.instance
         val apiInterface = ApiClient.client.create(ApiInterface::class.java)
         val repository = Repository(database, appExecutors, apiInterface)
-        val viewModelFactory = UserViewModelFactory(repository, application, autheader!!)
+        val viewModelFactory = UserViewModelFactory(repository, autheader!!)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserViewModel::class.java)
     }
 }

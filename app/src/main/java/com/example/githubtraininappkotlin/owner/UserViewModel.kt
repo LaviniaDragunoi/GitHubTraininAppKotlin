@@ -1,6 +1,5 @@
 package com.example.githubtraininappkotlin.owner
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.example.githubtraininappkotlin.models.OwnerEntity
 
 class UserViewModel(
     private val repository: Repository,
-    application: Application,
     private val authHeader: String
 ) : ViewModel() {
 

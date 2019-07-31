@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.githubtraininappkotlin.AppExecutors
 import com.example.githubtraininappkotlin.DrawerLocker
@@ -40,13 +40,21 @@ class ReposFragment : Fragment() {
             lifecycleOwner = this@ReposFragment
         }
         val adapter = ReposAdapter(GithubRepoEntityListener { id ->
-            Toast.makeText(context, "$id", Toast.LENGTH_SHORT).show()
+            viewModel.onRepoEntityClicked(id)
         })
+
         binding.reposRecycler.adapter = adapter
         binding.reposRecycler.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         viewModel.reposList.observe(this, Observer {
             if (it.isNotEmpty()) {
                 adapter.submitList(it)
+            }
+        })
+        viewModel.navigateToRepoDetails.observe(this, Observer { repo ->
+            repo?.let {
+                this.findNavController()
+                    .navigate(ReposFragmentDirections.actionReposFragmentToRepoDetailsFragment(repo))
+                viewModel.onRepoEntityNavigated()
             }
         })
         return binding.root

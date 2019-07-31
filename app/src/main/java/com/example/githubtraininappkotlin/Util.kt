@@ -13,6 +13,14 @@ object Util {
     }
 }
 
+fun getPrivacy(isPrivate: Boolean): String {
+    if (isPrivate) {
+         return "Private"
+    } else {
+        return "Public"
+    }
+}
+
 @BindingAdapter("repoName")
 fun TextView.setRepoName(item: GithubRepoEntity?) {
     item?.let {
@@ -21,7 +29,7 @@ fun TextView.setRepoName(item: GithubRepoEntity?) {
 }
 
 @BindingAdapter("repoCreated")
-fun TextView.setCreatedDate(item: GithubRepoEntity?){
+fun TextView.setCreatedDate(item: GithubRepoEntity?) {
     item?.let {
         text = Util.displayDate(item.createdAt!!)
     }
@@ -31,5 +39,12 @@ fun TextView.setCreatedDate(item: GithubRepoEntity?){
 fun TextView.setUpdatedDate(item: GithubRepoEntity?) {
     item?.let {
         text = Util.displayDate(item.updatedAt!!)
+    }
+}
+
+@BindingAdapter("repoPrivacy")
+fun TextView.setRepoPrivacy(item: GithubRepoEntity?) {
+    item?.let {
+        text = getPrivacy(item.mPrivate)
     }
 }

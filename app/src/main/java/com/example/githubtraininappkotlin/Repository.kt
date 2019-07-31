@@ -25,6 +25,10 @@ class Repository(
     private val reposMutableLD = MutableLiveData<List<GithubRepoEntity>>()
     val reposLd: LiveData<List<GithubRepoEntity>>
     get() = reposMutableLD
+    private val repoDetailsMutableLD = MutableLiveData<GithubRepoEntity>()
+    val repoDetailsLiveData: LiveData<GithubRepoEntity>
+    get() = repoDetailsMutableLD
+
     fun fetchRetrofit(
         authHeader: String,
         onSuccess: (owner: OwnerEntity) -> Unit,
@@ -80,5 +84,11 @@ class Repository(
     private fun addReposToDb(reposList: List<GithubRepoEntity>?) {
         database.ownerDatabaseDao.clearRepos()
         database.ownerDatabaseDao.insertReposList(reposList!!)
+    }
+
+    fun getRepoDetailsFromDbById(id: Int) {
+        appExecutors.diskIO().execute {
+            repoDetailsMutableLD.postValue(database.ownerDatabaseDao.getRepoById(id))
+        }
     }
 }
