@@ -95,7 +95,7 @@
                 tools:targetApi="lollipop"
                 android:drawableStart="@drawable/ic_archive"
                 style="@style/BottomButtonStyle"
-            android:onClick="@{() -> userViewModel.viewRepos()}"/>
+                android:onClick="@{() -> userViewModel.viewRepos()}"/>
 
             <Button
                 android:id="@+id/emailButton"

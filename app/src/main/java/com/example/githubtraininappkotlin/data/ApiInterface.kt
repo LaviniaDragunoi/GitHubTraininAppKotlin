@@ -9,7 +9,7 @@ import retrofit2.http.Header
 interface ApiInterface {
 
 @GET("user")
-fun getOwner( @Header("Authorization") authHeader : String): Call<OwnerEntity>
+fun getOwner(@Header("Authorization") authHeader: String): Call<OwnerEntity>
 
     @GET("user/repos")
     fun getRepos(@Header("Authorization") authHeader: String): Call<List<GithubRepoEntity>>

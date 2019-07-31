@@ -1,7 +1,11 @@
 package com.example.githubtraininappkotlin.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.example.githubtraininappkotlin.models.GithubRepoEntity
 import com.example.githubtraininappkotlin.models.OwnerEntity
 
@@ -31,4 +35,7 @@ interface OwnerDao {
 
     @Query("DELETE FROM repos_table")
     fun clearRepos()
+
+    @Query("SELECT * FROM repos_table WHERE id = :id")
+    fun getRepoById(id: Int): GithubRepoEntity
 }
