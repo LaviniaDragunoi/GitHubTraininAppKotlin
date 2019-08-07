@@ -39,10 +39,10 @@ class ReposFragment : Fragment() {
             hasOptionsMenu()
             title = "Repositories list"
         }
-        binding.apply {
-            reposViewModel = viewModel
-            lifecycleOwner = this@ReposFragment
-        }
+        // binding.apply {
+        //     reposViewModel = viewModel
+        //     lifecycleOwner = this@ReposFragment
+        // }
         val adapter = ReposAdapter(GithubRepoEntityListener { id ->
             viewModel.onRepoEntityClicked(id)
         })

@@ -48,7 +48,10 @@ class UserFragment : Fragment() {
 false
         )
         (activity as DrawerLocker).setDrawerLocked(false)
-        (activity as AppCompatActivity).supportActionBar!!.show()
+        (activity as AppCompatActivity).supportActionBar!!.apply {
+            show()
+            hasOptionsMenu()
+        }
         initializeViewModel()
         binding.apply {
             userViewModel = viewModel
@@ -102,6 +105,7 @@ false
     fun viewReposList(viewReposActiveted: Boolean) {
         if (viewReposActiveted) {
             this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToReposFragment())
+            viewModel.alreadyFetchedRepos()
         } else {
             viewModel.errorReposMessageLiveData.observe(this, Observer {
                 Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()

@@ -21,4 +21,5 @@
               android:label="repo_details_fragment" tools:layout="@layout/fragment_repo_details">
         <argument android:name="id" app:argType="integer"/>
     </fragment>
+
 </navigation>
