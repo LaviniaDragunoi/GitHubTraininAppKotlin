@@ -46,4 +46,7 @@ class UserViewModel(
             }
         )
     }
+    fun alreadyFetchedRepos(){
+        _viewReposAction.value = false
+    }
 }
