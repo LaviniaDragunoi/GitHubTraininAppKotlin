@@ -8,10 +8,11 @@ import com.example.githubtraininappkotlin.models.GithubRepoEntity
 import com.example.githubtraininappkotlin.models.OwnerEntity
 
 class ReposViewModel(
-    private val repository: Repository
+    private val repository: Repository,
+    private var orderedBy: String?
 ) : ViewModel() {
     val owner: LiveData<OwnerEntity> = repository.ownerLD
-    val reposList: LiveData<List<GithubRepoEntity>> = repository.reposLd
+    val reposList: LiveData<List<GithubRepoEntity>> = repository.getList(orderedBy)
     private val _navigateToRepoDetails = MutableLiveData<Int>()
     val navigateToRepoDetails
     get() = _navigateToRepoDetails

@@ -1,25 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/navigation_graph" app:startDestination="@id/loginFragment">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation_graph"
+            app:startDestination="@id/loginFragment">
 
-    <fragment android:id="@+id/loginFragment" android:name="com.example.githubtraininappkotlin.login.LoginFragment"
-              android:label="LoginFragment">
-        <action android:id="@+id/action_loginFragment_to_userFragment" app:destination="@+id/userFragment"/>
+    <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.githubtraininappkotlin.login.LoginFragment"
+            android:label="LoginFragment">
+        <action
+                android:id="@+id/action_loginFragment_to_userFragment"
+                app:destination="@+id/userFragment"/>
     </fragment>
-    <fragment android:id="@+id/reposFragment" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
-              android:label="fragment_repos" tools:layout="@layout/fragment_repos">
+    <fragment
+            android:id="@+id/reposFragment"
+            android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+            android:label="fragment_repos"
+            tools:layout="@layout/fragment_repos">
+
         <action android:id="@+id/action_reposFragment_to_repoDetailsFragment"
                 app:destination="@id/repoDetailsFragment"/>
+        <argument
+                android:name="orderBy"
+                app:argType="string"
+                app:nullable="true"/>
     </fragment>
-    <fragment android:id="@+id/userFragment" android:name="com.example.githubtraininappkotlin.owner.UserFragment"
-              android:label="fragment_user" tools:layout="@layout/fragment_user">
-        <action android:id="@+id/action_userFragment_to_reposFragment" app:destination="@id/reposFragment"/>
+    <fragment
+            android:id="@+id/userFragment"
+            android:name="com.example.githubtraininappkotlin.owner.UserFragment"
+            android:label="fragment_user"
+            tools:layout="@layout/fragment_user">
+        <action
+                android:id="@+id/action_userFragment_to_reposFragment"
+                app:destination="@id/reposFragment"/>
     </fragment>
     <fragment android:id="@+id/repoDetailsFragment"
               android:name="com.example.githubtraininappkotlin.repoDetails.RepoDetailsFragment"
-              android:label="repo_details_fragment" tools:layout="@layout/fragment_repo_details">
-        <argument android:name="id" app:argType="integer"/>
+              android:label="repo_details_fragment"
+              tools:layout="@layout/fragment_repo_details">
+        <argument
+                android:name="id"
+                app:argType="integer"/>
     </fragment>
+    <fragment
+            android:id="@+id/created_action"
+            android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+            android:label="fragment_repos"
+            tools:layout="@layout/fragment_repos">
+        <argument
+                android:name="ordered_by"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="created_at"/>
+    </fragment>
+    <fragment
+            android:id="@+id/updated_action"
+            android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+            android:label="fragment_repos" tools:layout="@layout/fragment_repos">
+        <argument
+                android:name="ordered_by"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="updated_at"/>
+    </fragment>
+    <fragment android:id="@+id/pushed_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="fragment_repos" tools:layout="@layout/fragment_repos">
+        <argument android:name="ordered_by" app:argType="string" android:defaultValue="pushed_at"/>
+    </fragment>
+    <fragment android:id="@+id/full_name_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="full_name_action" tools:layout="@layout/fragment_repos">
+        <argument android:name="ordered_by" app:argType="string" android:defaultValue="full_name"/>
+    </fragment>
+    <fragment android:id="@+id/owner_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="fragment_repos" tools:layout="@layout/fragment_repos">
+        <argument android:name="orderedBy" app:argType="string" android:defaultValue="owner"/>
+    </fragment>
+    <fragment android:id="@+id/collaborator_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="fragment_repos" tools:layout="@layout/fragment_repos">
+        <argument android:name="orderedBy" app:argType="string" android:defaultValue="collaborator"/>
+    </fragment>
+    <fragment android:id="@+id/organization_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
+              android:label="fragment_repos" tools:layout="@layout/fragment_repos"/>
 
 </navigation>

@@ -52,7 +52,7 @@ false
             show()
             hasOptionsMenu()
         }
-        initializeViewModel()
+        initViewModel()
         binding.apply {
             userViewModel = viewModel
             lifecycleOwner = this@UserFragment
@@ -104,7 +104,7 @@ false
 
     fun viewReposList(viewReposActiveted: Boolean) {
         if (viewReposActiveted) {
-            this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToReposFragment())
+            this.findNavController().navigate(UserFragmentDirections.actionUserFragmentToReposFragment(null))
             viewModel.alreadyFetchedRepos()
         } else {
             viewModel.errorReposMessageLiveData.observe(this, Observer {
@@ -112,7 +112,7 @@ false
             })
         }
     }
-    fun initializeViewModel() {
+    fun initViewModel() {
         mPreferences = activity!!.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
         if (mPreferences.getBoolean(IS_LOGED, false)) {
             autheader = mPreferences.getString(AUTH_HEADER, null)

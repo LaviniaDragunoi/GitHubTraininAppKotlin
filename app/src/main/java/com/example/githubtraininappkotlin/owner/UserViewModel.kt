@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubtraininappkotlin.Repository
-import com.example.githubtraininappkotlin.models.GithubRepoEntity
 import com.example.githubtraininappkotlin.models.OwnerEntity
 
 class UserViewModel(
@@ -13,7 +12,7 @@ class UserViewModel(
 ) : ViewModel() {
 
     val owner: LiveData<OwnerEntity> = repository.ownerLD
-    val reposList: LiveData<List<GithubRepoEntity>> = repository.reposLd
+ //   val reposList: LiveData<List<GithubRepoEntity>> = repository.reposLd
     private val _viewReposAction = MutableLiveData<Boolean>()
     val viewReposAction: LiveData<Boolean>
     get() = _viewReposAction
@@ -46,7 +45,7 @@ class UserViewModel(
             }
         )
     }
-    fun alreadyFetchedRepos(){
+    fun alreadyFetchedRepos() {
         _viewReposAction.value = false
     }
 }

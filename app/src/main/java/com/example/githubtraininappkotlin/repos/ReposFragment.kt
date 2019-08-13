@@ -22,6 +22,7 @@ import com.example.githubtraininappkotlin.databinding.FragmentReposBinding
 
 class ReposFragment : Fragment() {
 
+    private var orderedBy: String? = null
     private lateinit var binding: FragmentReposBinding
     private lateinit var viewModel: ReposViewModel
 
@@ -32,17 +33,17 @@ class ReposFragment : Fragment() {
             container,
             false
         )
-        initializeViewModel()
+        initViewModel()
         (activity as DrawerLocker).setDrawerLocked(false)
         (activity as AppCompatActivity).supportActionBar!!.apply {
             show()
             hasOptionsMenu()
             title = "Repositories list"
         }
-        // binding.apply {
-        //     reposViewModel = viewModel
-        //     lifecycleOwner = this@ReposFragment
-        // }
+        binding.apply {
+            reposViewModel = viewModel
+            lifecycleOwner = this@ReposFragment
+        }
         val adapter = ReposAdapter(GithubRepoEntityListener { id ->
             viewModel.onRepoEntityClicked(id)
         })
@@ -50,10 +51,10 @@ class ReposFragment : Fragment() {
         binding.reposRecycler.adapter = adapter
         binding.reposRecycler.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         viewModel.reposList.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                adapter.submitList(it)
-            }
-        })
+                if (it.isNotEmpty()) {
+                    adapter.submitList(it)
+                }
+            })
         viewModel.navigateToRepoDetails.observe(this, Observer { repo ->
             repo?.let {
                 this.findNavController()
@@ -64,13 +65,15 @@ class ReposFragment : Fragment() {
         return binding.root
     }
 
-    fun initializeViewModel() {
+    fun initViewModel() {
         val application = requireNotNull(this.activity).application
+        val arguments = ReposFragmentArgs.fromBundle(arguments!!)
+        orderedBy = arguments.orderedBy
         val database = AppDatabase.getInstance(application)
         val appExecutors = AppExecutors.instance
         val apiInterface = ApiClient.client.create(ApiInterface::class.java)
         val repository = Repository(database, appExecutors, apiInterface)
-        val viewModelFactory = ReposViewModelFactory(repository)
+        val viewModelFactory = ReposViewModelFactory(repository, orderedBy)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ReposViewModel::class.java)
     }
 }

@@ -73,7 +73,7 @@ data class GithubRepoEntity(
     @ColumnInfo(name = "teams_url")
     @SerializedName("teams_url")
     @Expose
-    val teamsUrl:String?,
+    val teamsUrl: String?,
 
     @ColumnInfo(name = "hooks_url")
     @SerializedName("hooks_url")
@@ -128,7 +128,7 @@ data class GithubRepoEntity(
     @ColumnInfo(name = "statuses_url")
     @SerializedName("statuses_url")
     @Expose
-    val statusesUrl:  String?,
+    val statusesUrl: String?,
 
     @ColumnInfo(name = "languages_url")
     @SerializedName("languages_url")

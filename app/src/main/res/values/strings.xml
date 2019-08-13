@@ -41,4 +41,8 @@
     <string name="public_title">Public</string>
     <string name="repository_s_full_name">Full Name</string>
     <string name="error_string">No internet connection</string>
+
+    <!--Args strings-->
+    <string name="created_at_string">created_at</string>
+    <string name="updated_at_string">updated_at</string>
 </resources>

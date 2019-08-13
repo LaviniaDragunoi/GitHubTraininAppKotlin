@@ -40,7 +40,7 @@ class LoginFragment : Fragment() {
             container,
             false
         )
-        initializeViewModel()
+        initViewModel()
         mPreferences = this.activity!!.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
         (activity as DrawerLocker).setDrawerLocked(true)
         (activity as AppCompatActivity).supportActionBar!!.hide()
@@ -80,7 +80,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    fun initializeViewModel() {
+    fun initViewModel() {
         val application = requireNotNull(this.activity).application
         val database = AppDatabase.getInstance(application)
         val appExecutors = AppExecutors.instance

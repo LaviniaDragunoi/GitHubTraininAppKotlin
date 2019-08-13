@@ -32,7 +32,7 @@ class RepoDetailsFragment : Fragment() {
             container,
             false
         )
-        initializeViewModel()
+        initViewModel()
         (activity as DrawerLocker).setDrawerLocked(false)
         (activity as AppCompatActivity).supportActionBar!!.apply {
             show()
@@ -46,7 +46,7 @@ class RepoDetailsFragment : Fragment() {
         })
         return binding.root
     }
-    fun initializeViewModel() {
+    fun initViewModel() {
         val application = requireNotNull(this.activity).application
         val arguments = RepoDetailsFragmentArgs.fromBundle(arguments!!)
         val repoId = arguments.id
