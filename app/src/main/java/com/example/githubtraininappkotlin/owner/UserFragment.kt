@@ -89,7 +89,7 @@ false
 
      fun sendEmail(sendEmailActivated: Boolean) {
          if (sendEmailActivated) {
-             val intent = Intent(Intent.ACTION_SEND)
+             val intent = Intent(Intent.ACTION_SENDTO)
              intent.data = Uri.parse("mailto: ")
              intent.putExtra(Intent.EXTRA_EMAIL, emailAddress)
              intent.putExtra(Intent.EXTRA_SUBJECT, "Collaboration proposal")
