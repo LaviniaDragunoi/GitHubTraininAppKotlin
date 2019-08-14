@@ -15,6 +15,12 @@ import com.example.githubtraininappkotlin.AppExecutors
 import com.example.githubtraininappkotlin.DrawerLocker
 import com.example.githubtraininappkotlin.R
 import com.example.githubtraininappkotlin.Repository
+import com.example.githubtraininappkotlin.Util.COLLABORATOR
+import com.example.githubtraininappkotlin.Util.CREATED_AT
+import com.example.githubtraininappkotlin.Util.FULL_NAME
+import com.example.githubtraininappkotlin.Util.OWNER
+import com.example.githubtraininappkotlin.Util.PUSHED_AT
+import com.example.githubtraininappkotlin.Util.UPDATED_AT
 import com.example.githubtraininappkotlin.data.ApiClient
 import com.example.githubtraininappkotlin.data.ApiInterface
 import com.example.githubtraininappkotlin.database.AppDatabase
@@ -35,11 +41,6 @@ class ReposFragment : Fragment() {
         )
         initViewModel()
         (activity as DrawerLocker).setDrawerLocked(false)
-        (activity as AppCompatActivity).supportActionBar!!.apply {
-            show()
-            hasOptionsMenu()
-            title = "Repositories list"
-        }
         binding.apply {
             reposViewModel = viewModel
             lifecycleOwner = this@ReposFragment
@@ -69,12 +70,27 @@ class ReposFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val arguments = ReposFragmentArgs.fromBundle(arguments!!)
         orderedBy = arguments.orderedBy
-        val database = AppDatabase.getInstance(application)
-        val appExecutors = AppExecutors.instance
-        val apiInterface = ApiClient.client.create(ApiInterface::class.java)
-        val repository = Repository(database, appExecutors, apiInterface)
-        val viewModelFactory = ReposViewModelFactory(repository, orderedBy)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ReposViewModel::class.java)
-    }
+        var toolbarTitleSet: String
+        when (orderedBy) {
+            CREATED_AT -> toolbarTitleSet = getString(R.string.sorted_by_created_date_string)
+            UPDATED_AT -> toolbarTitleSet = getString(R.string.updated_darte_string)
+            PUSHED_AT -> toolbarTitleSet = getString(R.string.pushed_at_string)
+            FULL_NAME -> toolbarTitleSet = getString(R.string.full_name_string)
+            OWNER -> toolbarTitleSet = getString(R.string.owned_repos_string)
+            COLLABORATOR -> toolbarTitleSet = getString(R.string.collaborators_string)
+            else -> toolbarTitleSet = getString(R.string.repositories_list_string)
+            }
+            (activity as AppCompatActivity).supportActionBar!!.apply {
+                show()
+                hasOptionsMenu()
+                title = toolbarTitleSet
+            }
+            val database = AppDatabase.getInstance(application)
+            val appExecutors = AppExecutors.instance
+            val apiInterface = ApiClient.client.create(ApiInterface::class.java)
+            val repository = Repository(database, appExecutors, apiInterface)
+            val viewModelFactory = ReposViewModelFactory(repository, orderedBy)
+            viewModel = ViewModelProviders.of(this, viewModelFactory).get(ReposViewModel::class.java)
+        }
 }
 
