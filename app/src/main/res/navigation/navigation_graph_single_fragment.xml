@@ -49,7 +49,7 @@
             android:label="fragment_repos"
             tools:layout="@layout/fragment_repos">
         <argument
-                android:name="ordered_by"
+                android:name="orderedBy"
                 app:argType="string"
                 app:nullable="true"
                 android:defaultValue="created_at"/>
@@ -59,18 +59,18 @@
             android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
             android:label="fragment_repos" tools:layout="@layout/fragment_repos">
         <argument
-                android:name="ordered_by"
+                android:name="orderedBy"
                 app:argType="string"
                 app:nullable="true"
                 android:defaultValue="updated_at"/>
     </fragment>
     <fragment android:id="@+id/pushed_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
               android:label="fragment_repos" tools:layout="@layout/fragment_repos">
-        <argument android:name="ordered_by" app:argType="string" android:defaultValue="pushed_at"/>
+        <argument android:name="orderedBy" app:argType="string" android:defaultValue="pushed_at"/>
     </fragment>
     <fragment android:id="@+id/full_name_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
               android:label="full_name_action" tools:layout="@layout/fragment_repos">
-        <argument android:name="ordered_by" app:argType="string" android:defaultValue="full_name"/>
+        <argument android:name="orderedBy" app:argType="string" android:defaultValue="full_name"/>
     </fragment>
     <fragment android:id="@+id/owner_action" android:name="com.example.githubtraininappkotlin.repos.ReposFragment"
               android:label="fragment_repos" tools:layout="@layout/fragment_repos">
